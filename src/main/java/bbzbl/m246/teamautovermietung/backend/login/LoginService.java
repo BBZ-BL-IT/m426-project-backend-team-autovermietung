@@ -25,6 +25,6 @@ public class LoginService {
             return "Wrong password";
         }
 
-        return "Login successful";
+        return "Login successful, User is admin:" + user.isAdmin();
     }
 }
