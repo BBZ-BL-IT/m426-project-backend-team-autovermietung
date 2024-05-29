@@ -6,7 +6,7 @@ VALUES
     ('bob_jackson', 'bob.jackson@example.com', 'password123', false, true);
 
 -- Sample Data for the car model
-INSERT INTO cars (brand, model, color, license_plate, mileage, engine_power, fuel_type, number_of_sears, rental_price, cunsumption, enabled)
+INSERT INTO cars (brand, model, color, license_plate, mileage, engine_power, fuel_type, number_of_seats, rental_price, cunsumption, enabled)
 VALUES
     ('Volkswagen', 'Golf', 'Blue', 'ABC123', 20000, 110, 'Petrol', 5, 45, 5, true),
     ('BMW', '3 Series', 'Black', 'DEF456', 15000, 150, 'Diesel', 5, 65, 4, true),
