@@ -18,13 +18,13 @@ public class LoginService {
         UserModel user = userService.getUserByUsername(loginUser.getUsername());
 
         if (user == null) {
-            return "User not found";
+            return "{ \"message\": \"User not found\" }";
         }
 
         if (!user.getPassword().equals(loginUser.getPassword())) {
-            return "Wrong password";
+            return "{ \"message\": \"Password is wrong\" }";
         }
 
-        return "Login successful, User is admin:" + user.isAdmin();
+            return "{ \"message\": \"Login successful\", \"isAdmin\": " + user.isAdmin() + "}";
     }
 }
