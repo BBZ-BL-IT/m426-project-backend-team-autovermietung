@@ -1,0 +1,3 @@
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/BBZ-BL-IT/m426-project-team-autovermietung.git
