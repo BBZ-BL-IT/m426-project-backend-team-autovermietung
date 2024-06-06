@@ -14,6 +14,7 @@ public class LoginService {
         this.userService = userService;
     }
 
+    //TODO: ADD USER RETUEN OBJECT
     public String login(LoginUserDTO loginUser) {
         UserModel user = userService.getUserByUsername(loginUser.getUsername());
 
@@ -25,6 +26,6 @@ public class LoginService {
             return "{ \"message\": \"Password is wrong\" }";
         }
 
-            return "{ \"message\": \"Login successful\", \"isAdmin\": " + user.isAdmin() + "}";
+            return "{ \"message\": \"Login successful\", \"user\": " + user.toString() + "}";
     }
 }

@@ -1,5 +1,7 @@
 package bbzbl.m246.teamautovermietung.backend.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ public class UserModel {
     private Long id;
     @Column(name = "username", nullable = false)
     private String username;
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "email", nullable = false)
@@ -26,4 +29,8 @@ public class UserModel {
     private boolean isAdmin;
     @Column(name = "enabled", nullable = false, columnDefinition = "boolean default true")
     private boolean enabled;
+
+    public String toString() {
+        return "{ \"id\": " + id + ", \"username\": \"" + username + "\", \"email\": \"" + email + "\", \"isAdmin\": " + isAdmin + ", \"enabled\": " + enabled + "}";
+    }
 }
