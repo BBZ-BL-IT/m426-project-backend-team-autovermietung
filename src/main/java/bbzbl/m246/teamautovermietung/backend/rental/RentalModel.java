@@ -4,7 +4,8 @@ import bbzbl.m246.teamautovermietung.backend.car.CarModel;
 import bbzbl.m246.teamautovermietung.backend.user.UserModel;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -25,11 +26,11 @@ public class RentalModel {
 
     @Column(name = "rental_start", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date rentalStart;
+    private LocalDate rentalStart;
 
     @Column(name = "rental_end", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date rentalEnd;
+    private LocalDate rentalEnd;
 
     @Column(name = "total_cost", nullable = false)
     private double totalCost;
