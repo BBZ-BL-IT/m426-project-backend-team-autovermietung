@@ -1,7 +1,12 @@
 package bbzbl.m246.teamautovermietung.backend.car;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -95,6 +101,14 @@ public class CarController {
     @PostMapping
     public ResponseEntity<CarModel> createCar(@RequestBody CarModel car) {
         return ResponseEntity.ok(carService.saveCar(car));
+    }
+
+    @GetMapping("/byDate")
+    public ResponseEntity<List<CarModel>> getCarsByDate(
+        @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, 
+        @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+    ) {
+        return ResponseEntity.ok(carService.getCarsByDate(startDate, endDate));
     }
 
     @PutMapping("/{id}")
