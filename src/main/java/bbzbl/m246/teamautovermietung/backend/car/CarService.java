@@ -78,8 +78,8 @@ public class CarService {
                 .collect(Collectors.toList());
     }
 
-    private boolean isCarAvailable(CarModel car, LocalDate startDate, LocalDate endDate) {
-        return this.rentalRepository.findByCarId(car.getId()).stream()
+    private boolean isCarAvailable(Long id, LocalDate startDate, LocalDate endDate) {
+        return this.rentalRepository.findByCarId(id).stream()
                 .noneMatch(rental -> rental.getRentalStart().isBefore(endDate.plusDays(1)) && rental.getRentalEnd().isAfter(startDate.minusDays(1)));
     }
 

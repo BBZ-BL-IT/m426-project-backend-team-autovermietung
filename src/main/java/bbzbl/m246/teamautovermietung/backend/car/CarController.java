@@ -111,6 +111,15 @@ public class CarController {
         return ResponseEntity.ok(carService.getCarsByDate(startDate, endDate));
     }
 
+    @GetMapping("/byDate/{id}")
+    public ResponseEntity<Boolean> getCarsByDate(
+        @PathVariable() Long id,
+        @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, 
+        @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+    ) {
+        return ResponseEntity.ok(carService.isCarAvailable(id, startDate, endDate));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<CarModel> updateCarById(@PathVariable Long id, @RequestBody CarModel car) {
         car.setId(id);
