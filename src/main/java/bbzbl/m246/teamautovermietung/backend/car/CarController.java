@@ -1,9 +1,6 @@
 package bbzbl.m246.teamautovermietung.backend.car;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -105,18 +102,16 @@ public class CarController {
 
     @GetMapping("/byDate")
     public ResponseEntity<List<CarModel>> getCarsByDate(
-        @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, 
-        @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
-    ) {
+            @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return ResponseEntity.ok(carService.getCarsByDate(startDate, endDate));
     }
 
     @GetMapping("/byDate/{id}")
     public ResponseEntity<Boolean> getCarsByDate(
-        @PathVariable() Long id,
-        @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, 
-        @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
-    ) {
+            @PathVariable() Long id,
+            @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return ResponseEntity.ok(carService.isCarAvailable(id, startDate, endDate));
     }
 

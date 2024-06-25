@@ -1,7 +1,6 @@
 package bbzbl.m246.teamautovermietung.backend.car;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,13 +73,14 @@ public class CarService {
 
     public List<CarModel> getCarsByDate(LocalDate startDate, LocalDate endDate) {
         return this.carRepository.findAll().stream()
-                .filter(car -> isCarAvailable(car, startDate, endDate))
+                .filter(car -> isCarAvailable(car.getId(), startDate, endDate))
                 .collect(Collectors.toList());
     }
 
-    private boolean isCarAvailable(Long id, LocalDate startDate, LocalDate endDate) {
+    public boolean isCarAvailable(Long id, LocalDate startDate, LocalDate endDate) {
         return this.rentalRepository.findByCarId(id).stream()
-                .noneMatch(rental -> rental.getRentalStart().isBefore(endDate.plusDays(1)) && rental.getRentalEnd().isAfter(startDate.minusDays(1)));
+                .noneMatch(rental -> rental.getRentalStart().isBefore(endDate.plusDays(1))
+                        && rental.getRentalEnd().isAfter(startDate.minusDays(1)));
     }
 
     public CarModel saveCar(CarModel car) {
