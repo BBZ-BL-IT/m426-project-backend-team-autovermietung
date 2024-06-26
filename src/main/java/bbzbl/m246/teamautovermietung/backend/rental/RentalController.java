@@ -2,8 +2,10 @@ package bbzbl.m246.teamautovermietung.backend.rental;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/rental")
@@ -61,6 +64,20 @@ public class RentalController {
             @PathVariable Long carId) {
         List<RentalModel> rentals = rentalService.getRentalsByUserIdAndCarId(userId, carId);
         return ResponseEntity.ok(rentals);
+    }
+
+    @GetMapping("/byDate")
+    public ResponseEntity<List<RentalModel>> getRentalsByDate(
+            @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return ResponseEntity.ok(rentalService.getByDate(startDate, endDate));
+    }
+
+    @GetMapping("/byDate/user/{id}")
+    public ResponseEntity<List<RentalModel>> getRentalsByUserIdAndDate(@PathVariable Long id,
+            @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return ResponseEntity.ok(rentalService.getByDateAndUserId(id, startDate, endDate));
     }
 
     @PostMapping

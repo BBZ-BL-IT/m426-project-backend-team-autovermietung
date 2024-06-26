@@ -1,6 +1,8 @@
 package bbzbl.m246.teamautovermietung.backend.rental;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -47,5 +49,18 @@ public class RentalService {
 
     public List<RentalModel> getRentalsByUserIdAndCarId(Long userId, Long carId) {
         return rentalRepository.findByUserIdAndCarId(userId, carId);
+    }
+
+    public List<RentalModel> getByDate(LocalDate startDate, LocalDate endDate) {
+        return rentalRepository.findAll().stream()
+                .filter(rental -> rental.getRentalStart().isAfter(startDate) && rental.getRentalEnd().isBefore(endDate))
+                .collect(Collectors.toList());
+    }
+
+    public List<RentalModel> getByDateAndUserId(Long id, LocalDate startDate, LocalDate endDate) {
+        return rentalRepository.findByUserId(id).stream()
+                .filter(rental -> rental.getRentalStart().isAfter(startDate) && rental.getRentalEnd().isBefore(endDate))
+                .collect(Collectors.toList());
+
     }
 }
